@@ -1,0 +1,187 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: #d1d1d1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+/* NAVBAR */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 60px;
+  background: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #333;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.logo {
+  color: #d4af37;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links li {
+  cursor: pointer;
+  color: #c0c0c0;
+}
+
+.nav-links li:hover {
+  color: #d4af37;
+}
+
+/* HERO */
+
+.hero {
+  text-align: center;
+  padding: 180px 20px 120px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, #d4af37, #f4e087);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeInUp 1s ease-out;
+}
+
+.subtitle {
+  color: #d4af37;
+  margin: 15px 0;
+  font-size: 1.2rem;
+  font-weight: 300;
+  animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.btn {
+  margin-top: 25px;
+  padding: 12px 28px;
+  border: none;
+  background: linear-gradient(45deg, #d4af37, #f4e087);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.btn:hover {
+  background: linear-gradient(45deg, #f4e087, #d4af37);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* PROJECTS */
+
+.projects {
+  padding: 80px 60px;
+  text-align: center;
+  background: rgba(26, 26, 26, 0.5);
+}
+
+.projects h2 {
+  margin-bottom: 40px;
+  color: #d4af37;
+  font-size: 2.5rem;
+  position: relative;
+}
+
+.projects h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(45deg, #d4af37, #f4e087);
+  border-radius: 2px;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background: linear-gradient(135deg, rgba(17, 17, 17, 0.9) 0%, rgba(34, 34, 34, 0.9) 100%);
+  padding: 30px;
+  border-radius: 15px;
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: #d4af37;
+  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+}
+
+/* FOOTER */
+
+.footer {
+  text-align: center;
+  padding: 30px;
+  border-top: 1px solid #333;
+  margin-top: 60px;
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(5px);
+}
+
+.card h3 a {
+  color: #d4af37;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.card h3 a:hover {
+  color: #f4e087;
+}
+
+.project-link {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 16px;
+  background: linear-gradient(45deg, #d4af37, #f4e087);
+  color: #000;
+  text-decoration: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+}
+
+.project-link:hover {
+  background: linear-gradient(45deg, #f4e087, #d4af37);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
