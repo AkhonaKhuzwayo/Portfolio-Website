@@ -2,11 +2,12 @@
   "name": "react-portfolio",
   "version": "1.0.0",
   "type": "module",
- "scripts": {
-  "dev": "vite",
-  "build": "npx --no-install vite build",
-  "preview": "vite preview"
-},
+  "scripts": {
+    "dev": "vite",
+    "build": "npx --no-install vite build",
+    "preview": "vite preview",
+    "postinstall": "chmod +x ./node_modules/.bin/vite"
+  },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
