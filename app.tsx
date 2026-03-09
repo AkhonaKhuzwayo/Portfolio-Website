@@ -1,7 +1,7 @@
-import Navbar from "./components/navbar.tsx"
-import Hero from "./components/hero.tsx"
-import Projects from "./components/projects.tsx"
-import Footer from "./components/footer.tsx"
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Projects from "./components/Projects";
+import Footer from "./components/Footer";
 
 function App() {
   return (
