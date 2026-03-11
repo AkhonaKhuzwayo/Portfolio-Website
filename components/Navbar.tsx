@@ -1,18 +1,34 @@
+import { useState, useEffect } from 'react';
+
 function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (id: string) => {  // <-- Add ': string' type
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <nav className="navbar">
-
-      <h2 className="logo">Akhona Khuzwayo</h2>
-
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="navbar">
+      <div className="logo">Portfolio</div>
       <ul className="nav-links">
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a onClick={() => scrollToSection('hero')}>Home</a></li>
+        <li><a onClick={() => scrollToSection('skills')}>Skills</a></li>
+        <li><a onClick={() => scrollToSection('projects')}>Projects</a></li>
+        <li><a onClick={() => scrollToSection('contact')}>Contact</a></li>
       </ul>
-
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
