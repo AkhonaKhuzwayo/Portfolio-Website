@@ -1,14 +1,18 @@
-import Navbar from "./components/navbar.tsx"
-import Hero from "./components/hero.tsx"
-import Projects from "./components/projects.tsx"
-import Footer from "./components/footer.tsx"
+import Navbar from "./components/navbar"
+import Hero from "./components/Hero"
+import Skills from "./components/skills"
+import Projects from "./components/Projects"
+import Contact from "./components/Contact"
+import Footer from "./components/Footer"
 
 function App() {
   return (
     <>
       <Navbar />
       <Hero />
+      <Skills />
       <Projects />
+      <Contact />
       <Footer />
     </>
   )

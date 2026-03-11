@@ -1,27 +1,69 @@
 function Projects() {
   return (
-    <section className="projects">
+    <section id="projects" className="projects">
 
       <h2>My Projects</h2>
 
       <div className="project-grid">
 
         <div className="card">
-          <h3><a href="https://pine-city-zoo-murex.vercel.app/" target="_blank" rel="noopener noreferrer">Pine City Zoo</a></h3>
-          <p>HTML & CSS zoo website project.</p>
-          <a href="https://pine-city-zoo-murex.vercel.app/" className="project-link" target="_blank" rel="noopener noreferrer">View Project</a>
+          <h3>Pine City Zoo</h3>
+
+          <p>
+            A zoo themed website built using
+            HTML and CSS showcasing animals,
+            locations and information pages.
+          </p>
+
+          <a
+            href="https://pine-city-zoo-murex.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-link"
+          >
+            Live Demo
+          </a>
+
         </div>
 
         <div className="card">
-          <h3><a href="https://example.com/avengers-app" target="_blank" rel="noopener noreferrer">Avengers App</a></h3>
-          <p>A web app showcasing Avengers characters.</p>
-          <a href="https://example.com/avengers-app" className="project-link" target="_blank" rel="noopener noreferrer">View Project</a>
+          <h3>Avengers App</h3>
+
+          <p>
+            A web application displaying
+            Avengers characters with their
+            profiles and information.
+          </p>
+
+          <a
+            href="https://example.com/avengers-app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-link"
+          >
+            View Project
+          </a>
+
         </div>
 
         <div className="card">
-          <h3><a href="https://example.com/resume-screener" target="_blank" rel="noopener noreferrer">Resume Screener</a></h3>
-          <p>A Python tool that automatically screens resumes.</p>
-          <a href="https://example.com/resume-screener" className="project-link" target="_blank" rel="noopener noreferrer">View Project</a>
+          <h3>Resume Screener</h3>
+
+          <p>
+            A Python application that analyzes
+            resumes and ranks candidates using
+            automated screening.
+          </p>
+
+          <a
+            href="https://example.com/resume-screener"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-link"
+          >
+            View Project
+          </a>
+
         </div>
 
       </div>

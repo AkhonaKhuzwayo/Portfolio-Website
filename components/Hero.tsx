@@ -1,6 +1,6 @@
 function Hero() {
   return (
-    <section className="hero">
+    <section id="hero" className="hero">
 
       <h1>Hello, I'm Akhona 👋</h1>
 
@@ -8,12 +8,24 @@ function Hero() {
         Aspiring Software Developer
       </p>
 
-      <p>
-        I build modern web applications using HTML, CSS,
-        JavaScript, React and Python.
+      <p className="hero-description">
+        I build modern web applications using
+        HTML, CSS, JavaScript, React and Python.
+        I'm passionate about learning new technologies
+        and building useful software.
       </p>
 
-      <button className="btn">View My Work</button>
+      <div className="hero-buttons">
+
+        <a href="#projects" className="btn">
+          View My Work
+        </a>
+
+        <a href="#contact" className="btn-outline">
+          Contact Me
+        </a>
+
+      </div>
 
     </section>
   )
