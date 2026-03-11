@@ -1,22 +1,33 @@
 function Skills() {
+  const skills = [
+    { name: 'React', icon: '⚛️' },
+    { name: 'TypeScript', icon: '📘' },
+    { name: 'JavaScript', icon: '🟨' },
+    { name: 'HTML/CSS', icon: '🎨' },
+    { name: 'Python', icon: '🐍' },
+    { name: 'Vite', icon: '⚡' },
+    { name: 'Node.js', icon: '🌿' },
+    { name: 'Git', icon: '📦' },
+  ];
+
   return (
-    <section id="skills" className="skills">
-
-      <h2>My Skills</h2>
-
-      <div className="skills-grid">
-
-        <div className="skill-card">HTML</div>
-        <div className="skill-card">CSS</div>
-        <div className="skill-card">JavaScript</div>
-        <div className="skill-card">React</div>
-        <div className="skill-card">Python</div>
-        <div className="skill-card">Git</div>
-
+    <section className="skills" id="skills">
+      <div className="container">
+        <div className="section-header reveal">
+          <h2>Technical Skills</h2>
+          <p>Technologies I work with to bring ideas to life</p>
+        </div>
+        <div className="skills-grid">
+          {skills.map((skill, index) => (
+            <div className="skill-card reveal" key={skill.name} style={{ animationDelay: `${index * 0.1}s` }}>
+              <span className="skill-icon">{skill.icon}</span>
+              <span className="skill-name">{skill.name}</span>
+            </div>
+          ))}
+        </div>
       </div>
-
     </section>
-  )
+  );
 }
 
-export default Skills
+export default Skills;

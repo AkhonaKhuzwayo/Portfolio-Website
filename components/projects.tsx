@@ -1,75 +1,62 @@
 function Projects() {
+  const projects = [
+    {
+      title: "Pine City Zoo",
+      description: "A vibrant, interactive zoo website showcasing animals and attractions with modern CSS animations and responsive design.",
+      link: "https://pine-city-zoo-murex.vercel.app/",
+      tags: ["HTML", "CSS", "Responsive"],
+      icon: "🦁"
+    },
+    {
+      title: "Avengers App",
+      description: "Interactive React application exploring Marvel characters with dynamic profiles, search functionality, and sleek UI.",
+      link: "https://example.com/avengers-app",
+      tags: ["React", "API", "UI/UX"],
+      icon: "🦸"
+    },
+    {
+      title: "Resume Screener",
+      description: "AI-powered resume analysis tool that automates candidate ranking using NLP and machine learning algorithms.",
+      link: "https://example.com/resume-screener",
+      tags: ["Python", "NLP", "Automation"],
+      icon: "📄"
+    }
+  ];
+
   return (
-    <section id="projects" className="projects">
-
-      <h2>My Projects</h2>
-
-      <div className="project-grid">
-
-        <div className="card">
-          <h3>Pine City Zoo</h3>
-
-          <p>
-            A zoo themed website built using
-            HTML and CSS showcasing animals,
-            locations and information pages.
-          </p>
-
-          <a
-            href="https://pine-city-zoo-murex.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="project-link"
-          >
-            Live Demo
-          </a>
-
+    <section className="projects" id="projects">
+      <div className="container">
+        <div className="section-header reveal">
+          <h2>Featured Projects</h2>
+          <p>Some of my recent work and experiments</p>
         </div>
-
-        <div className="card">
-          <h3>Avengers App</h3>
-
-          <p>
-            A web application displaying
-            Avengers characters with their
-            profiles and information.
-          </p>
-
-          <a
-            href="https://example.com/avengers-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="project-link"
-          >
-            View Project
-          </a>
-
+        <div className="projects-grid">
+          {projects.map((project, index) => (
+            <div className="project-card reveal" key={project.title} style={{ animationDelay: `${index * 0.2}s` }}>
+              <div className="project-image">{project.icon}</div>
+              <div className="project-content">
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="project-tags">
+                  {project.tags.map(tag => (
+                    <span className="tag" key={tag}>{tag}</span>
+                  ))}
+                </div>
+                <a 
+                  href={project.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="project-link"
+                >
+                  Live Demo →
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
-
-        <div className="card">
-          <h3>Resume Screener</h3>
-
-          <p>
-            A Python application that analyzes
-            resumes and ranks candidates using
-            automated screening.
-          </p>
-
-          <a
-            href="https://example.com/resume-screener"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="project-link"
-          >
-            View Project
-          </a>
-
-        </div>
-
       </div>
-
     </section>
-  )
+  );
 }
 
-export default Projects
+export default Projects;
