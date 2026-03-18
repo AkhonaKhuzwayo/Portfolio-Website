@@ -17,12 +17,12 @@ function Contact() {
           </a>
 
           {/* WhatsApp Button */}
-          <a
+         <a
             href="https://wa.me/27671931298?text=Hi%20Akhona,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-secondary"
-          >
+            className="btn btn-whatsapp"
+        >
             💬 WhatsApp Me
           </a>
         </div>
