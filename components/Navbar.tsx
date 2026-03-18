@@ -20,7 +20,7 @@ function Navbar() {
 
   return (
     <nav className={`Navbar ${scrolled ? 'scrolled' : ''}`} id="Navbar">
-      <div className="logo">Portfolio</div>
+      <div className="logo">Akhonas Khuzwayo</div>
       <ul className="nav-links">
         <li><a onClick={() => scrollToSection('hero')}>Home</a></li>
         <li><a onClick={() => scrollToSection('skills')}>Skills</a></li>
