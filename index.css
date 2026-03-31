@@ -440,6 +440,102 @@ body {
   box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
 }
 
+.project-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.project-control-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+}
+
+.project-search,
+.project-sort {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-search:focus,
+.project-sort:focus {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.project-sort {
+  min-width: 170px;
+}
+
+.project-sort option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.project-reset {
+  padding: 12px 18px;
+  border-radius: 12px;
+}
+
+.tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag-filter {
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: transparent;
+  color: var(--gold-primary);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+}
+
+.tag-filter:hover {
+  background: rgba(212, 175, 55, 0.12);
+  transform: translateY(-1px);
+}
+
+.tag-filter.active {
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+  color: var(--bg-dark);
+  border-color: transparent;
+}
+
+.project-results {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.projects-empty {
+  border: 1px dashed rgba(212, 175, 55, 0.35);
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  background: rgba(212, 175, 55, 0.06);
+}
+
+.projects-empty h3 {
+  margin-bottom: 8px;
+  color: var(--gold-light);
+}
+
+.projects-empty p {
+  color: var(--text-secondary);
+}
+
 /* CONTACT */
 .contact {
   padding: 100px 60px;
@@ -483,6 +579,98 @@ body {
   font-size: 1.1rem;
   margin-bottom: 30px;
   position: relative;
+}
+
+.contact-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.form-field {
+  text-align: left;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--gold-light);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #7f7f7f;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.form-field input[aria-invalid='true'],
+.form-field textarea[aria-invalid='true'] {
+  border-color: #ff7878;
+}
+
+.field-error {
+  margin-top: 8px;
+  color: #ff9292;
+  font-size: 0.85rem;
+}
+
+.message-meta {
+  min-height: 22px;
+}
+
+.char-count {
+  margin-top: 8px;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
+.submit-btn {
+  width: fit-content;
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-error {
+  color: #ff9292;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.form-success {
+  color: #8fffba;
+  font-size: 0.95rem;
+  text-align: left;
 }
 
 .contact .btn-primary {
@@ -553,6 +741,19 @@ body {
   .projects-grid {
     grid-template-columns: 1fr;
   }
+
+  .project-control-row {
+    grid-template-columns: 1fr;
+  }
+
+  .project-sort,
+  .project-reset {
+    width: 100%;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
   
   .contact-content {
     padding: 40px 20px;
@@ -577,6 +778,16 @@ body {
   gap: 15px;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.contact-buttons-wrap {
+  position: relative;
+}
+
+.quick-contact-title {
+  margin-bottom: 14px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
 }
 
 /* WHATSAPP BUTTON */
