@@ -4,9 +4,12 @@ import Skills from "./components/Skills"
 import Projects from "./components/Projects"
 import Contact from "./components/Contact"
 import Footer from "./components/Footer"
-import { useEffect } from 'react'
+import NewsTicker from "./components/NewsTicker"
+import { useEffect, useState } from 'react'
 
 function App() {
+  const [showTicker, setShowTicker] = useState(true);
+
   useEffect(() => {
     // Navbar scroll effect
     const handleScroll = () => {
@@ -16,6 +19,9 @@ function App() {
       } else {
         navbar?.classList.remove('scrolled');
       }
+
+      // Keep ticker visible only while user is on the Home section area.
+      setShowTicker(window.scrollY < window.innerHeight * 0.6);
     };
 
     // Scroll reveal animation
@@ -37,12 +43,15 @@ function App() {
     });
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <>
       <Navbar />
+      {showTicker && <NewsTicker />}
       <Hero />
       <Skills />
       <Projects />

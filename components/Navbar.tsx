@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,14 +21,21 @@ function Navbar() {
   };
 
   return (
-    <nav className={`Navbar ${scrolled ? 'scrolled' : ''}`} id="Navbar">
-      <div className="logo">Akhonas Khuzwayo</div>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="Navbar">
+      <div className="logo">Akhona Khuzwayo</div>
       <ul className="nav-links">
         <li><a onClick={() => scrollToSection('hero')}>Home</a></li>
         <li><a onClick={() => scrollToSection('skills')}>Skills</a></li>
         <li><a onClick={() => scrollToSection('projects')}>Projects</a></li>
         <li><a onClick={() => scrollToSection('contact')}>Contact</a></li>
       </ul>
+      <button
+        className="theme-toggle"
+        onClick={toggleTheme}
+        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        {theme === 'dark' ? '☀️' : '🌙'}
+      </button>
     </nav>
   );
 }

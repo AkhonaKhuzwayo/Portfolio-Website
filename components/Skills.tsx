@@ -1,5 +1,7 @@
+import type { Skill } from '../types';
+
 function Skills() {
-  const skills = [
+  const skills: Skill[] = [
     { name: 'React', icon: '⚛️' },
     { name: 'TypeScript', icon: '📘' },
     { name: 'JavaScript', icon: '🟨' },

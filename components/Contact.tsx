@@ -1,14 +1,6 @@
 import { type ChangeEvent, type FormEvent, useState } from "react";
 import emailjs from "@emailjs/browser";
-
-type ContactForm = {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-};
-
-type ContactErrors = Partial<Record<keyof ContactForm, string>>;
+import type { ContactForm, ContactErrors } from '../types';
 
 const initialForm: ContactForm = {
   name: "",
