@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
 import Skills from "./components/Skills"
 import Projects from "./components/Projects"
+import Pricing from "./components/Pricing"
 import Contact from "./components/Contact"
 import Footer from "./components/Footer"
 import NewsTicker from "./components/NewsTicker"
@@ -38,7 +39,7 @@ function App() {
       });
     }, observerOptions);
 
-    document.querySelectorAll('.reveal').forEach(el => {
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
       observer.observe(el);
     });
 
@@ -55,6 +56,7 @@ function App() {
       <Hero />
       <Skills />
       <Projects />
+      <Pricing />
       <Contact />
       <Footer />
     </>

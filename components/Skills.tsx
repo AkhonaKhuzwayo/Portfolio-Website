@@ -21,7 +21,7 @@ function Skills() {
         </div>
         <div className="skills-grid">
           {skills.map((skill, index) => (
-            <div className="skill-card reveal" key={skill.name} style={{ animationDelay: `${index * 0.1}s` }}>
+            <div className="skill-card reveal-scale" key={skill.name} style={{ transitionDelay: `${index * 0.1}s` }}>
               <span className="skill-icon">{skill.icon}</span>
               <span className="skill-name">{skill.name}</span>
             </div>

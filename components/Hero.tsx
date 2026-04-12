@@ -1,3 +1,5 @@
+import CodeBackground from './CodeBackground';
+
 function Hero() {
   const scrollToSection = (id: string) => {  // <-- Add ': string' type
     const element = document.getElementById(id);
@@ -8,6 +10,7 @@ function Hero() {
 
   return (
     <section className="hero" id="hero">
+      <CodeBackground />
       <div className="hero-content">
         <h1>Building Digital Experiences</h1>
         <p className="subtitle">Full Stack Developer</p>
@@ -24,6 +27,13 @@ function Hero() {
           </button>
         </div>
       </div>
+      <button
+        className="hero-scroll"
+        aria-label="Scroll to skills"
+        onClick={() => scrollToSection('skills')}
+      >
+        <span className="hero-scroll-inner" aria-hidden="true">▾</span>
+      </button>
     </section>
   );
 }

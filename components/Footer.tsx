@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer className="footer">
-      <div className="social-links">
+      <div className="social-links reveal">
         <a href="https://github.com" target="_blank" rel="noopener noreferrer" title="GitHub">
           <span>GH</span>
         </a>
@@ -12,7 +12,7 @@ function Footer() {
           <span>TW</span>
         </a>
       </div>
-      <p>&copy; {new Date().getFullYear()} Portfolio. Built with passion.</p>
+      <p className="reveal">&copy; {new Date().getFullYear()} Portfolio. Built with passion.</p>
     </footer>
   );
 }

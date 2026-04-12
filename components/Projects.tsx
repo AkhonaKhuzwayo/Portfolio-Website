@@ -127,8 +127,8 @@ function Projects() {
 
         {filteredProjects.length > 0 ? (
           <div className="projects-grid">
-            {filteredProjects.map((project) => (
-              <div className="project-card reveal" key={project.title}>
+            {filteredProjects.map((project, index) => (
+              <div className="project-card reveal" key={project.title} style={{ transitionDelay: `${index * 0.12}s` }}>
                 <div className="project-image">
                   <span>{project.icon}</span>
                 </div>
