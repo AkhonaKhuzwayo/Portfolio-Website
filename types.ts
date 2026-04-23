@@ -3,6 +3,13 @@ export interface Skill {
   icon: string;
 }
 
+export interface Certification {
+  title: string;
+  issuer: string;
+  icon: string;
+  year: string;
+}
+
 export interface Project {
   title: string;
   description: string;
