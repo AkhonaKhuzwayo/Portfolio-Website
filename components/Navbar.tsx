@@ -25,6 +25,7 @@ function Navbar() {
       <div className="logo">Akhona Khuzwayo</div>
       <ul className="nav-links">
         <li><a onClick={() => scrollToSection('hero')}>Home</a></li>
+        <li><a onClick={() => scrollToSection('about')}>About</a></li>
         <li><a onClick={() => scrollToSection('skills')}>Skills</a></li>
         <li><a onClick={() => scrollToSection('certifications')}>Certifications</a></li>
         <li><a onClick={() => scrollToSection('projects')}>Projects</a></li>

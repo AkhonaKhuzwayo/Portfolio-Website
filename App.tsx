@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
+import About from "./components/About"
 import Skills from "./components/Skills"
 import Certifications from "./components/Certifications"
 import Projects from "./components/Projects"
@@ -55,6 +56,7 @@ function App() {
       <Navbar />
       {showTicker && <NewsTicker />}
       <Hero />
+      <About />
       <Skills />
       <Certifications />
       <Projects />
