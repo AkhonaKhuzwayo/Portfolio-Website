@@ -18,12 +18,15 @@ function Hero() {
           I craft elegant solutions to complex problems. Specializing in modern web technologies 
           and user-centric design.
         </p>
-        <div className="hero-buttons">
-          <button onClick={() => scrollToSection('projects')} className="btn btn-primary">
-            View My Work
+        <div className="hero-buttons hero-cta-cluster">
+          <button onClick={() => scrollToSection('projects')} className="btn btn-primary hero-btn-main">
+            Explore Projects
           </button>
-          <button onClick={() => scrollToSection('contact')} className="btn btn-secondary">
-            Get In Touch
+          <button onClick={() => scrollToSection('certifications')} className="btn btn-secondary hero-btn-alt">
+            View Certifications
+          </button>
+          <button onClick={() => scrollToSection('contact')} className="btn hero-btn-ghost">
+            Let's Talk
           </button>
         </div>
       </div>

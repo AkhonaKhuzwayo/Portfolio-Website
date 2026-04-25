@@ -1,5 +1,6 @@
 import { type ChangeEvent, type FormEvent, useState } from "react";
-import emailjs from "@emailjs/browser";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db, isFirebaseConfigured } from "../firebase";
 import type { ContactForm, ContactErrors } from '../types';
 
 const initialForm: ContactForm = {
@@ -10,11 +11,6 @@ const initialForm: ContactForm = {
 };
 
 function Contact() {
-  const env = (import.meta as { env?: Record<string, string | undefined> }).env;
-  const emailJsServiceId = env?.VITE_EMAILJS_SERVICE_ID ?? "";
-  const emailJsTemplateId = env?.VITE_EMAILJS_TEMPLATE_ID ?? "";
-  const emailJsPublicKey = env?.VITE_EMAILJS_PUBLIC_KEY ?? "";
-
   const [formData, setFormData] = useState<ContactForm>(initialForm);
   const [errors, setErrors] = useState<ContactErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -78,28 +74,23 @@ function Contact() {
 
     if (Object.keys(nextErrors).length > 0) return;
 
-    if (!emailJsServiceId || !emailJsTemplateId || !emailJsPublicKey) {
-      setSubmitError("Email service is not configured yet. Add your EmailJS keys to Vite env variables.");
+    if (!isFirebaseConfigured || !db) {
+      setSubmitError("Contact service is not configured yet. Add your Firebase keys to Vite env variables.");
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      await emailjs.send(
-        emailJsServiceId,
-        emailJsTemplateId,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          time: new Date().toLocaleString(),
-        },
-        {
-          publicKey: emailJsPublicKey,
-        }
-      );
+      const payload = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
+        createdAt: serverTimestamp(),
+      };
+
+      await addDoc(collection(db, "contactMessages"), payload);
 
       setIsSubmitted(true);
       setFormData(initialForm);
