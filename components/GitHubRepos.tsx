@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { GitHubRepo } from "../types";
 
 const GITHUB_USERNAME = "AkhonaKhuzwayo";
@@ -8,6 +8,28 @@ function GitHubRepos() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeLanguage, setActiveLanguage] = useState("All");
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Re-run the reveal observer whenever repos change (async load means
+  // App.tsx's one-time observer has already run before these elements exist)
+  useEffect(() => {
+    if (loading || !sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+    sectionRef.current.querySelectorAll(".reveal").forEach((el) => {
+      if (!el.classList.contains("active")) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [repos, loading]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -50,7 +72,7 @@ function GitHubRepos() {
   }, [repos, activeLanguage]);
 
   return (
-    <section className="github-repos" id="github">
+    <section className="github-repos" id="github" ref={sectionRef}>
       <div className="container">
         <div className="section-header reveal">
           <h2>GitHub Repositories</h2>
