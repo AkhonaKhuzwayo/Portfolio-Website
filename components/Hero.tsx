@@ -28,6 +28,13 @@ function Hero() {
           <button onClick={() => scrollToSection('contact')} className="btn hero-btn-ghost">
             Let's Talk
           </button>
+          <a
+            href="/Akhona-Khuzwayo-CV.pdf"
+            download
+            className="btn btn-secondary hero-btn-alt cv-download-btn"
+          >
+            ⬇ Download CV
+          </a>
         </div>
       </div>
       <button

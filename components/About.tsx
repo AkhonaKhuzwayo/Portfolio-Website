@@ -1,4 +1,17 @@
+import { useEffect, useState } from 'react';
+
 function About() {
+	const [lightboxOpen, setLightboxOpen] = useState(false);
+
+	useEffect(() => {
+		if (!lightboxOpen) return;
+		const handleKey = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') setLightboxOpen(false);
+		};
+		window.addEventListener('keydown', handleKey);
+		return () => window.removeEventListener('keydown', handleKey);
+	}, [lightboxOpen]);
+
 	return (
 		<section className="about" id="about">
 			<div className="container">
@@ -8,13 +21,41 @@ function About() {
 				</div>
 				<div className="about-content">
 					<div className="about-avatar reveal-left">
-						<div className="avatar-placeholder">
+						<div
+							className="avatar-placeholder avatar-clickable"
+							onClick={() => setLightboxOpen(true)}
+							title="Click to view photo"
+						>
 							<img
-								src="/akhona.jpeg"
+								src="/Profile-pic.jpeg"
 								alt="Akhona Khuzwayo profile photo"
 								className="avatar-photo"
 							/>
 						</div>
+
+						{lightboxOpen && (
+							<div
+								className="avatar-lightbox"
+								onClick={() => setLightboxOpen(false)}
+								role="dialog"
+								aria-modal="true"
+								aria-label="Profile photo enlarged"
+							>
+								<img
+									src="/Profile-pic.jpeg"
+									alt="Akhona Khuzwayo profile photo"
+									className="lightbox-img"
+									onClick={(e) => e.stopPropagation()}
+								/>
+								<button
+									className="lightbox-close"
+									onClick={() => setLightboxOpen(false)}
+									aria-label="Close"
+								>
+									✕
+								</button>
+							</div>
+						)}
 						<div className="about-location">
 							<span className="location-icon">📍</span>
 							<span>South Africa</span>
@@ -54,6 +95,13 @@ function About() {
 								className="about-link-btn"
 							>
 								<span>💻</span> GitHub
+							</a>
+							<a
+								href="/Akhona-Khuzwayo-CV.pdf"
+								download
+								className="about-link-btn about-link-btn--gold"
+							>
+								<span>⬇</span> Download CV
 							</a>
 						</div>
 					</div>
