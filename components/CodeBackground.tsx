@@ -1,4 +1,4 @@
-interface CodeSnippet {
+  interface CodeSnippet {
   id: number;
   lines: { text: string; type: 'keyword' | 'fn' | 'string' | 'type' | 'comment' | 'plain' | 'number' }[];
   top: string;

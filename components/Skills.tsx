@@ -10,6 +10,10 @@ function Skills() {
     { name: 'Vite', icon: '⚡' },
     { name: 'Node.js', icon: '🌿' },
     { name: 'Git', icon: '📦' },
+    { name: 'Tailwind CSS', icon: '💨' },
+    { name: 'Supabase', icon: '🗄️' },
+    { name: 'Firebase', icon: '🔥' },
+    { name: 'REST APIs', icon: '🔌' },
   ];
 
   return (

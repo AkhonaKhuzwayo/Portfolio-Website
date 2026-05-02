@@ -4,6 +4,7 @@ import About from "./components/About"
 import Skills from "./components/Skills"
 import Certifications from "./components/Certifications"
 import Projects from "./components/Projects"
+import GitHubRepos from "./components/GitHubRepos"
 import Pricing from "./components/Pricing"
 import Contact from "./components/Contact"
 import Footer from "./components/Footer"
@@ -60,6 +61,7 @@ function App() {
       <Skills />
       <Certifications />
       <Projects />
+      <GitHubRepos />
       <Pricing />
       <Contact />
       <Footer />
