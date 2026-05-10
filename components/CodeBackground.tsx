@@ -1,3 +1,5 @@
+  import { useEffect, useState } from 'react';
+
   interface CodeSnippet {
   id: number;
   lines: { text: string; type: 'keyword' | 'fn' | 'string' | 'type' | 'comment' | 'plain' | 'number' }[];
@@ -102,9 +104,53 @@ const snippets: CodeSnippet[] = [
 ];
 
 function CodeBackground() {
+  const [maxSnippets, setMaxSnippets] = useState(snippets.length);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mediumViewport = window.matchMedia('(max-width: 1200px)');
+    const compactViewport = window.matchMedia('(max-width: 900px)');
+
+    const updateMode = () => {
+      if (reducedMotion.matches) {
+        setMaxSnippets(0);
+        return;
+      }
+
+      if (compactViewport.matches) {
+        setMaxSnippets(1);
+        return;
+      }
+
+      if (mediumViewport.matches) {
+        setMaxSnippets(2);
+        return;
+      }
+
+      setMaxSnippets(3);
+    };
+
+    updateMode();
+    reducedMotion.addEventListener('change', updateMode);
+    mediumViewport.addEventListener('change', updateMode);
+    compactViewport.addEventListener('change', updateMode);
+
+    return () => {
+      reducedMotion.removeEventListener('change', updateMode);
+      mediumViewport.removeEventListener('change', updateMode);
+      compactViewport.removeEventListener('change', updateMode);
+    };
+  }, []);
+
+  const visibleSnippets = snippets.slice(0, maxSnippets);
+
+  if (visibleSnippets.length === 0) {
+    return null;
+  }
+
   return (
     <div className="code-bg" aria-hidden="true">
-      {snippets.map((snippet) => (
+      {visibleSnippets.map((snippet) => (
         <pre
           key={snippet.id}
           className="code-snippet"

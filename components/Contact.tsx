@@ -1,4 +1,5 @@
 import { type ChangeEvent, type FormEvent, useState } from "react";
+import { motion } from 'framer-motion';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "../firebase";
 import type { ContactForm, ContactErrors } from '../types';
@@ -8,6 +9,32 @@ const initialForm: ContactForm = {
   email: "",
   subject: "",
   message: "",
+};
+
+const contactShell = {
+  hidden: { opacity: 0, y: 34 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.58,
+      ease: [0.22, 1, 0.36, 1] as const,
+      staggerChildren: 0.12,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const contactItem = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.45,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
 };
 
 function Contact() {
@@ -104,13 +131,20 @@ function Contact() {
 
   return (
     <section className="contact" id="contact">
-      <div className="contact-content reveal">
-        <h2>Let's Work Together</h2>
-        <p>
+      <motion.div
+        className="contact-content contact-content-lux"
+        variants={contactShell}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <div className="contact-gold-frame pointer-events-none" aria-hidden="true" />
+        <motion.h2 variants={contactItem}>Let's Work Together</motion.h2>
+        <motion.p variants={contactItem}>
           Have a project in mind? I'd love to hear about it. Let's create something amazing together.
-        </p>
+        </motion.p>
 
-        <form className="contact-form" noValidate onSubmit={handleSubmit}>
+        <motion.form className="contact-form" noValidate onSubmit={handleSubmit} variants={contactItem}>
           <div className="form-grid">
             <div className="form-field">
               <label htmlFor="name">Name</label>
@@ -210,9 +244,9 @@ function Contact() {
               Message sent successfully. I will get back to you soon.
             </p>
           )}
-        </form>
+        </motion.form>
 
-        <div className="contact-buttons-wrap">
+        <motion.div className="contact-buttons-wrap" variants={contactItem}>
           <p className="quick-contact-title">Prefer direct contact instead?</p>
 
           <div className="contact-buttons">
@@ -232,8 +266,8 @@ function Contact() {
             Chat on WhatsApp
           </a>
         </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

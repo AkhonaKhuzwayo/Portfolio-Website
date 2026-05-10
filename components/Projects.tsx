@@ -1,5 +1,107 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import type { Project } from '../types';
+
+const projectsHeader = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.34,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+};
+
+const projectsControls = {
+  hidden: { opacity: 0, y: 18 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.3,
+      delay: 0.04,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+};
+
+interface ProjectCardProps {
+  project: Project;
+  index: number;
+  disableParallax: boolean;
+}
+
+function ProjectCard({ project, index, disableParallax }: ProjectCardProps) {
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    mass: 0.25,
+  });
+
+  const frameY = useTransform(smoothProgress, [0, 1], disableParallax ? [0, 0] : [-16, 16]);
+  const contentY = useTransform(smoothProgress, [0, 1], disableParallax ? [0, 0] : [-28, 28]);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      className="project-card project-card-lux"
+      style={{ transitionDelay: `${index * 0.12}s` }}
+      initial={{ opacity: 0, y: 34 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -8 }}
+    >
+      <motion.div
+        className="project-icon-badge"
+        initial={{ scale: 0.8, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.15, duration: 0.4 }}
+        whileHover={{ scale: 1.15, rotate: 5 }}
+      >
+        {project.icon}
+      </motion.div>
+
+      <div className="project-parallax-shell">
+        <motion.div
+          className="project-layer project-layer-middle pointer-events-none"
+          style={{ y: frameY }}
+          aria-hidden="true"
+        >
+          <div className="project-wireframe" />
+        </motion.div>
+
+        <motion.div className="project-layer project-layer-front" style={{ y: contentY }}>
+          <div className="project-content">
+            <h3>{project.title}</h3>
+            <p>{project.description}</p>
+            <div className="project-tags">
+              {project.tags.map((tag) => (
+                <span className="tag" key={tag}>{tag}</span>
+              ))}
+            </div>
+            <a
+              href={project.link}
+              className="project-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Project →
+            </a>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
 
 function Projects() {
   const projects = [
@@ -36,6 +138,18 @@ function Projects() {
   const [activeTag, setActiveTag] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState<"default" | "title">("default");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 768px)');
+
+    const update = () => setIsMobile(media.matches);
+
+    update();
+    media.addEventListener('change', update);
+
+    return () => media.removeEventListener('change', update);
+  }, []);
 
   const allTags = useMemo(() => {
     const tags = new Set<string>();
@@ -77,12 +191,24 @@ function Projects() {
   return (
     <section className="projects" id="projects">
       <div className="container">
-        <div className="section-header reveal">
+        <motion.div
+          className="section-header"
+          variants={projectsHeader}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.35 }}
+        >
           <h2>Projects</h2>
           <p>A selection of work I've built and shipped</p>
-        </div>
+        </motion.div>
 
-        <div className="project-controls reveal">
+        <motion.div
+          className="project-controls"
+          variants={projectsControls}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+        >
           <div className="project-control-row">
             <input
               className="project-search"
@@ -123,33 +249,17 @@ function Projects() {
           <p className="project-results">
             Showing {filteredProjects.length} of {projects.length} projects
           </p>
-        </div>
+        </motion.div>
 
         {filteredProjects.length > 0 ? (
           <div className="projects-grid">
             {filteredProjects.map((project, index) => (
-              <div className="project-card reveal" key={project.title} style={{ transitionDelay: `${index * 0.12}s` }}>
-                <div className="project-image">
-                  <span>{project.icon}</span>
-                </div>
-                <div className="project-content">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="project-tags">
-                    {project.tags.map((tag) => (
-                      <span className="tag" key={tag}>{tag}</span>
-                    ))}
-                  </div>
-                  <a
-                    href={project.link}
-                    className="project-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View Project →
-                  </a>
-                </div>
-              </div>
+              <ProjectCard
+                key={project.title}
+                project={project}
+                index={index}
+                disableParallax={isMobile}
+              />
             ))}
           </div>
         ) : (

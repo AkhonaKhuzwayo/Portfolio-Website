@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 interface PricingTier {
   name: string;
   price: string;
@@ -7,6 +11,7 @@ interface PricingTier {
   cta: string;
   highlighted: boolean;
   badge?: string;
+  paymentLinkEnvKey?: 'VITE_YOCO_PAYMENT_LINK_STARTER' | 'VITE_YOCO_PAYMENT_LINK_PROFESSIONAL';
 }
 
 const tiers: PricingTier[] = [
@@ -23,8 +28,9 @@ const tiers: PricingTier[] = [
       '1 revision round',
       '7-day delivery',
     ],
-    cta: 'Get Started',
+    cta: 'Pay with Yoco',
     highlighted: false,
+    paymentLinkEnvKey: 'VITE_YOCO_PAYMENT_LINK_STARTER',
   },
   {
     name: 'Professional',
@@ -40,9 +46,10 @@ const tiers: PricingTier[] = [
       'Performance optimisation',
       '14-day delivery',
     ],
-    cta: 'Most Popular',
+    cta: 'Pay with Yoco',
     highlighted: true,
     badge: '⭐ Most Popular',
+    paymentLinkEnvKey: 'VITE_YOCO_PAYMENT_LINK_PROFESSIONAL',
   },
   {
     name: 'Enterprise',
@@ -64,27 +71,100 @@ const tiers: PricingTier[] = [
 ];
 
 function Pricing() {
+  const env = ((import.meta as unknown as Record<string, unknown>)['env'] as Record<string, string | undefined> | undefined) ?? {};
+
   const scrollToContact = () => {
     const el = document.getElementById('contact');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleTierAction = (tier: PricingTier) => {
+    const paymentLink = tier.paymentLinkEnvKey ? env[tier.paymentLinkEnvKey] : undefined;
+
+    if (paymentLink) {
+      window.open(paymentLink, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    scrollToContact();
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95, y: 20 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
+  };
+
+  const noteVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: 'easeOut', delay: 0.4 },
+    },
+  };
+
   return (
-    <section className="pricing" id="pricing">
+    <motion.section
+      className="pricing"
+      id="pricing"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-100px' }}
+      variants={containerVariants}
+    >
       <div className="container">
-        <div className="section-header reveal">
+        <motion.div className="section-header" variants={headerVariants}>
           <h2>Pricing</h2>
           <p>Transparent rates for every stage of your project</p>
-        </div>
-        <div className="pricing-grid">
-          {tiers.map((tier, index) => (
-            <div
-              className={`pricing-card ${index === 0 ? 'reveal-left' : index === 1 ? 'reveal' : 'reveal-right'}${tier.highlighted ? ' pricing-card--featured' : ''}`}
+        </motion.div>
+        <motion.div
+          className="pricing-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+        >
+          {tiers.map((tier) => (
+            <motion.div
+              className={`pricing-card reveal ${tier.highlighted ? ' pricing-card--featured' : ''}`}
               key={tier.name}
-              style={{ transitionDelay: `${index * 0.15}s` }}
+              variants={cardVariants}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
               {tier.badge && (
-                <span className="pricing-badge">{tier.badge}</span>
+                <motion.span
+                  className="pricing-badge"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.2, duration: 0.4 }}
+                >
+                  {tier.badge}
+                </motion.span>
               )}
               <div className="pricing-header">
                 <h3 className="pricing-name">{tier.name}</h3>
@@ -95,28 +175,39 @@ function Pricing() {
                 <p className="pricing-desc">{tier.description}</p>
               </div>
               <ul className="pricing-features">
-                {tier.features.map((feature) => (
-                  <li key={feature}>
+                {tier.features.map((feature, idx) => (
+                  <motion.li
+                    key={feature}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + idx * 0.05, duration: 0.4 }}
+                  >
                     <span className="pricing-check" aria-hidden="true">✓</span>
                     {feature}
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
-              <button
+              <motion.button
                 className={`btn-pricing${tier.highlighted ? ' btn-pricing--featured' : ''}`}
-                onClick={scrollToContact}
+                onClick={() => handleTierAction(tier)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
               >
                 {tier.cta}
-              </button>
-            </div>
+              </motion.button>
+              {tier.paymentLinkEnvKey && (
+                <p className="pricing-gateway-note">Secure checkout via Yoco</p>
+              )}
+            </motion.div>
           ))}
-        </div>
-        <p className="pricing-note reveal">
+        </motion.div>
+        <motion.p className="pricing-note" variants={noteVariants}>
           All prices are in ZAR. International clients welcome — rates adjusted for USD/EUR.
+          <br />Starter and Professional can be paid instantly with Yoco.
           <br />Not sure which plan fits? <button className="pricing-link" onClick={scrollToContact}>Let's chat.</button>
-        </p>
+        </motion.p>
       </div>
-    </section>
+    </motion.section>
   );
 }
 

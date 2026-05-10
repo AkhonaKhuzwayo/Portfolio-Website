@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type MouseEvent } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
 function Navbar() {
@@ -7,30 +7,40 @@ function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const next = window.scrollY > 50;
+      setScrolled((current) => (current === next ? current : next));
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {  // <-- Add ': string' type
+  const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
+  const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+    event.preventDefault();
+    scrollToSection(id);
+    window.history.replaceState(null, '', `#${id}`);
+  };
+
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="Navbar">
       <div className="logo">Akhona Khuzwayo</div>
       <ul className="nav-links">
-        <li><a onClick={() => scrollToSection('hero')}>Home</a></li>
-        <li><a onClick={() => scrollToSection('about')}>About</a></li>
-        <li><a onClick={() => scrollToSection('skills')}>Skills</a></li>
-        <li><a onClick={() => scrollToSection('certifications')}>Certifications</a></li>
-        <li><a onClick={() => scrollToSection('projects')}>Projects</a></li>
-        <li><a onClick={() => scrollToSection('pricing')}>Pricing</a></li>
-        <li><a onClick={() => scrollToSection('contact')}>Contact</a></li>
+        <li><a href="#hero" onClick={(event) => handleNavClick(event, 'hero')}>Home</a></li>
+        <li><a href="#about" onClick={(event) => handleNavClick(event, 'about')}>About</a></li>
+        <li><a href="#skills" onClick={(event) => handleNavClick(event, 'skills')}>Skills</a></li>
+        <li><a href="#certifications" onClick={(event) => handleNavClick(event, 'certifications')}>Certifications</a></li>
+        <li><a href="#projects" onClick={(event) => handleNavClick(event, 'projects')}>Projects</a></li>
+        <li><a href="#pricing" onClick={(event) => handleNavClick(event, 'pricing')}>Pricing</a></li>
+        <li><a href="#contact" onClick={(event) => handleNavClick(event, 'contact')}>Contact</a></li>
       </ul>
       <button
         className="theme-toggle"
